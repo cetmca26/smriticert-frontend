@@ -2,7 +2,7 @@ import React from 'react';
 
 function Stats() {
   return (
-    <div id="solution" className="mt-20">
+    <div id="solution" className="mt-20 mb-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-sky-500">
           <path fillRule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clipRule="evenodd" />
@@ -10,7 +10,7 @@ function Stats() {
         </svg>
 
         <div className="space-y-6 justify-between text-gray-600 md:flex flex-row-reverse md:gap-6 md:space-y-0 lg:gap-12 lg:items-center">
-          <div className="md:w-5/12 lg:w-1/2">
+          <div className="md:w-4/10 lg:w-2/5 mb-4">
             <img
               src="./images/pie.svg"
               alt="SmritiCert Statistics"
