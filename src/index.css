@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @keyframes scroll-horizontal {
   0% {
     transform: translateX(0%);
@@ -10,5 +11,5 @@
 }
 
 .animate-scroll-horizontal {
-  animation: scroll-horizontal  25s linear infinite;
+  animation: scroll-horizontal 25s linear infinite;
 }
