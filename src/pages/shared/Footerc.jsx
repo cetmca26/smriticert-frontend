@@ -12,7 +12,7 @@ function Footerc() {
               <div className="flex flex-col sm:flex-row">
 
               <h1 className="text-3xl font-bold text-white">Open</h1>
-              <h1 className="text-3xl font-bold text-cyan-400">Smriti</h1>
+              <h1 className="text-3xl font-bold text-cyan-400">Smrithi</h1>
               </div>
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
@@ -26,9 +26,9 @@ function Footerc() {
             <div>
               <h5 className="font-semibold mb-3 text-white">About Us</h5>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-cyan-400 transition">Who We Are</a></li>
+                <li><a href="https://github.com/orgs/cetmca26/teams/opensmriti" className="hover:text-cyan-400 transition">Who We Are</a></li>
                 <li><a href="#" className="hover:text-cyan-400 transition">Our Vision</a></li>
-                <li><a href="#" className="hover:text-cyan-400 transition">Team Members</a></li>
+                <li><a href="https://github.com/orgs/cetmca26/teams/opensmriti" className="hover:text-cyan-400 transition">Team Members</a></li>
                 <li><a href="#" className="hover:text-cyan-400 transition">FAQs</a></li>
               </ul>
             </div>
@@ -40,7 +40,7 @@ function Footerc() {
                 <li><a href="#" className="hover:text-cyan-400 transition">OpenSmriti Core</a></li>
                 <li><a href="#" className="hover:text-cyan-400 transition">Docs & Wiki</a></li>
                 <li><a href="#" className="hover:text-cyan-400 transition">Student Tools</a></li>
-                <li><a href="#" className="hover:text-cyan-400 transition">Contribute</a></li>
+                <li><a href="https://github.com/orgs/cetmca26/teams/opensmriti" className="hover:text-cyan-400 transition">Contribute</a></li>
               </ul>
             </div>
 
@@ -48,7 +48,7 @@ function Footerc() {
             <div>
               <h5 className="font-semibold mb-3 text-white">Connect</h5>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-cyan-400 transition">GitHub</a></li>
+                <li><a href="https://github.com/orgs/cetmca26/teams/opensmriti" className="hover:text-cyan-400 transition">GitHub</a></li>
                 <li><a href="#" className="hover:text-cyan-400 transition">Discord</a></li>
                 <li><a href="#" className="hover:text-cyan-400 transition">Email Us</a></li>
               </ul>

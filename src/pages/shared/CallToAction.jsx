@@ -62,8 +62,9 @@ function CallToAction() {
               Get Started now
             </h1>
             <p className="text-center text-xl text-gray-600 dark:text-gray-300">
-              Be part of millions people around the world using tailus in modern User Interfaces.
-            </p>
+  Join leading institutions around the world in adopting our decentralized, blockchain-powered portfolio and certification system—ensuring secure, transparent, and verifiable academic records.
+</p>
+
 
             <div className="flex flex-wrap justify-center gap-6">
               <a

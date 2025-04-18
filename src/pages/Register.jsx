@@ -1,106 +1,74 @@
-import { useState } from "react";
+import React from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-const BACKEND_URL = import.meta.env.BACKEND_URL;
 
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("student");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
-    if (!name || !email || !password) {
-      setError("All fields are required");
-      return;
-    }
-
-    try {
-      const res = await axios.post(`${BACKEND_URL}/auth/register`, {
-        name,
-        email,
-        password,
-        role,
-      });
-
-      if (res.status === 200) {
-        navigate("/login");
-      }
-    } catch (err) {
-      if (err.response && err.response.status === 400) {
-        setError(err.response.data?.msg || "Bad Request");
-      } else {
-        setError("Registration failed. Try again.");
-      }
-    }
-  };
-
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    
+    <div className="bg-white dark:bg-gray-950">
+        {/* Back Button */}
+    <button
+      onClick={() => navigate("/")}
+      className="absolute top-6 left-6 text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded transition z-auto"
+    >
+      ← Back
+    </button>
+    <div className="min-h-screen flex items-center justify-center pt-4 ">
+      <div className="w-full max-w-4xl">
+        <h1 className="text-4xl font-bold text-center text-white mb-8">
+          Choose Registration Type
+        </h1>
+        <p className="text-center text-sky-200 mb-12 max-w-2xl mx-auto">
+          Select whether you want to register as a student looking for institutions
+          or as an institution offering courses to students.
+        </p>
 
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Student Card */}
+          <div className="p-6 bg-black/30 backdrop-blur-xl border border-white/10 hover:bg-black/40 transition-all cursor-pointer group rounded-xl shadow-lg">
+            <h2 className="text-2xl font-semibold text-white mb-4">Student</h2>
+            <p className="text-sky-200 mb-6">
+              Register as a student to explore courses, track your applications, and
+              manage your educational journey.
+            </p>
+            <button
+              onClick={() => window.location.href = '/register/student'}
+              className="w-full bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-md font-medium group-hover:translate-y-[-2px] transition-all"
+            >
+              Register as Student
+            </button>
+          </div>
 
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white">Register</h2>
-          {/* Back Button */}
-          <button
-          type="button"
-          onClick={() => navigate('/')}
-          className="text-sm text-blue-600 hover:underline mb-2"
-        >
-          ← Back
-        </button>
-        {error && <p className="text-sm text-red-600 text-center">{error}</p>}
-        <form onSubmit={handleRegister} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Name"
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <select
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="student">Student</option>
-            <option value="institution">Institution</option>
-          </select>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-300"
-          >
-            Register
-          </button>
-        </form>
-        <p className="text-sm text-center text-gray-600 dark:text-gray-300">
+          {/* Institution Card */}
+          <div className="p-6 bg-black/30 backdrop-blur-xl border border-white/10 hover:bg-black/40 transition-all cursor-pointer group rounded-xl shadow-lg">
+            <h2 className="text-2xl font-semibold text-white mb-4">Institution</h2>
+            <p className="text-sky-200 mb-6">
+              Register your institution to showcase courses, connect with students,
+              and grow your educational community.
+            </p>
+            <button
+              onClick={() => window.location.href = '/register/institution'}
+              className="w-full bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-md font-medium group-hover:translate-y-[-2px] transition-all"
+            >
+              Register as Institution
+            </button>
+          </div>
+        </div>
+
+        <p className="text-center text-white/60 mt-8">
           Already have an account?{" "}
           <a
-            onClick={() => navigate("/login")}
-            className="cursor-pointer text-blue-600 hover:underline focus:outline-none"
+            href="/"
+            className="text-sky-400 hover:text-sky-300 hover:underline"
           >
             Login
           </a>
         </p>
+        
       </div>
     </div>
+    </div>
+
   );
 }
 

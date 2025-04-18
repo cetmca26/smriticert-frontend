@@ -2,7 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const BACKEND_URL = import.meta.env.BACKEND_URL;
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BACKEND_URL}/auth/login`, { email, password });
+      const res = await axios.post(`${BACKEND_URL}auth/login`, { email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       if (res.data.user.role === "student") navigate("/student-dashboard");
@@ -28,50 +29,61 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="bg-white dark:bg-gray-950 min-h-screen py-26 px-4">
+    <button
+      onClick={() => navigate("/")}
+      className="absolute top-6 left-6 text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded transition"
+    >
+      ← Back
+    </button>
 
-     
+    <div className="max-w-3xl mx-auto bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg p-10">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-white mb-4">Login</h1>
+        <p className="text-sky-200 mb-6 text-lg">Welcome back! Please login.</p>
+      </div>
 
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white">Login</h2>
-          {/* Back Button */}
-          <button
-          type="button"
-          onClick={() => navigate('/')}
-          className="text-sm text-blue-600 hover:underline mb-2"
-        >
-          ← Back
-        </button>
-        <form onSubmit={handleLogin} className="space-y-4">
-          {error && <p className="text-sm text-red-600 text-center">{error}</p>}
+      {error && (
+        <p className="text-red-500 text-center mb-4">{error}</p>
+      )}
+
+      <form onSubmit={handleLogin} className="space-y-6">
+        <div>
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+        </div>
+        <div>
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-300"
-          >
-            Login
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/register")}
-            className="cursor-pointer w-full px-4 py-2 mt-2 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50 transition duration-300"
-          >
-            Register
-          </button>
-        </form>
-      </div>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full px-4 py-3 bg-sky-500 hover:bg-sky-600 text-white rounded"
+        >
+          Login
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/register")}
+          className="w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded transition"
+        >
+          Register
+        </button>
+      </form>
     </div>
+  </div>
   );
 }
 

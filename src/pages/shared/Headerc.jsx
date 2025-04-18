@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+
 
 const links = [
+  { to: '', label: 'Home' },
   { to: '#features', label: 'Features' },
-  { to: '#certifications', label: 'Certifications' },
-  { to: '#portfolio', label: 'Portfolio' },
-  { to: '#contact', label: 'Contact' }
+  { to: '#technology-overview', label: 'Architecture' },
+  { to: '/login', label: 'Login' },
+  { to: '/register', label: 'Register' }
 ];
 
 
 function Headerc() {
-  const navigate = useNavigate();
+ 
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(prev => !prev);
 
@@ -30,7 +31,7 @@ function Headerc() {
                   <div className="h-6 w-2 bg-primary"></div>
                 </div>
                 <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Smriti<span className="text-primary">Cert</span>
+                  <span className="text-primary text-cyan-400 ">Smrithi</span>Cert
                 </span>
               </a>
 
@@ -83,23 +84,8 @@ function Headerc() {
                 </div>
               </div>
 
-              {/* Call-to-Action */}
-              <div className="mt-12 lg:mt-0">
-                <a
-                  onClick={() => navigate("/register")}
-                  className="cursor-pointer relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
-                >
-                  <span className="relative text-sm font-semibold text-white">Register</span>
-                </a>
-              </div>
-              <div className="mt-12 lg:mt-0">
-                <a
-                  onClick={() => navigate("/login")}
-                  className=" cursor-pointer relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
-                >
-                  <span className="relative text-sm font-semibold text-white">Login</span>
-                </a>
-              </div>
+            
+             
             </div>
           </div>
         </div>
