@@ -1,64 +1,57 @@
-import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useState } from 'react'
+import  { DashboardLayout } from "./DashboardLayout";
+import { InstitutionDetails }  from "./InstitutionDetails";
+import { InstituteVerification }  from "./InstituteVerification";
+import { VerificationProgress } from "./VerificationProgress";
+import  { CourseManagement }  from "./CourseManagement";
+import  { CertificatePublishing }  from "./CertificatePublishing";
+import { StudentsList } from "./StudentsList";
 
-const InstitutionDashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
+function InstitutionDashboard() {
+  const [activeTab, setActiveTab] = useState("overview");
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className={`bg-gray-800 text-white h-full p-4 transition-width duration-300 ${isSidebarOpen ? "w-64" : "w-20"}`}>
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="text-white mb-4"
-        >
-          {isSidebarOpen ? "<" : ">"}
-        </button>
-        {isSidebarOpen && (
-          <div>
-            <h2 className="text-xl font-bold mb-4">Institution Menu</h2>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/institution-dashboard">Dashboard</Link>
-              </li>
-              <li><Link to="/institution-dashboard/publish-certificate">Publish Certificate</Link></li>
-
-              <li>
-                <Link to="/institution-dashboard/verification-pending">Pending Verification</Link>
-              </li>
-              <li>
-                <Link to="/institution-dashboard/add-course">Add New Course</Link>
-              </li>
-              <li>
-                <Link to="/institution-dashboard/records">Educational Records</Link>
-              </li>
-              <li>
-                <Link to="/institution-dashboard/analytics">Analytics</Link>
-              </li>
-              <li>
-                <Link to="/institution-dashboard/support">Support</Link>
-              </li>
-            </ul>
+    <DashboardLayout activeTab={activeTab} setActiveTab={setActiveTab}>
+      {activeTab === "overview" && (
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="p-4  rounded-mdshadow-sm">
+            <VerificationProgress />
           </div>
-        )}
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 p-6 bg-gray-100 overflow-auto">
-        <h1 className="text-3xl font-semibold mb-6">Institution Dashboard</h1>
-
-        {/* Default Content when no route is active */}
-        <div className="text-lg text-gray-700 mb-6">
-          <p>
-            Welcome to the Institution Dashboard! Please select a section from the sidebar to view more details.
-          </p>
+          <div className="p-4  rounded-md  shadow-sm">
+            <InstitutionDetails isEditable={false} />
+          </div>
         </div>
+      )}
 
-        {/* This renders the child routes */}
-        <Outlet />
-      </div>
-    </div>
-  );
-};
+      {activeTab === "institution" && (
+        <div className="p-4  rounded-md shadow-sm">
+          <InstitutionDetails isEditable={true} />
+        </div>
+      )}
 
-export default InstitutionDashboard;
+      {activeTab === "courses" && (
+        <div className="p-4  rounded-md shadow-sm">
+          <CourseManagement />
+        </div>
+      )}
+
+      {activeTab === "certificates" && (
+        <div className="p-4  rounded-md   shadow-sm">
+          <CertificatePublishing />
+        </div>
+      )}
+
+      {activeTab === "students" && (
+        <div className="p-4  rounded-md shadow-sm">
+          <StudentsList />
+        </div>
+      )}
+      {activeTab === "verify" && (
+        <div className="p-4  rounded-md shadow-sm">
+          <InstituteVerification />
+        </div>
+      )}
+    </DashboardLayout>
+  )
+}
+
+export default InstitutionDashboard
