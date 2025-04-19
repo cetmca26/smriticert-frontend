@@ -154,7 +154,7 @@ export function StudentPortfolio() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 border-1 border-amber-50 ">
+        <TabsList className="grid w-full grid-cols-4 ">
           <TabsTrigger value="personal">Personal Info</TabsTrigger>
           <TabsTrigger value="education">Education</TabsTrigger>
           <TabsTrigger value="experience">Experience</TabsTrigger>

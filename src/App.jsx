@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { StudentDashboard } from "./pages/student/StudentDashboard";
+import StudentDashboard  from "./pages/student/StudentDashboard";
 import NotFound from "./pages/NotFound";
 import InstitutionDashboard from "./pages/institution/InstitutionDashboard";
 import Landing from "./Landing";

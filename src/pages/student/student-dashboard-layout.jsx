@@ -44,7 +44,7 @@ export function StudentDashboardLayout({ children, activeTab, setActiveTab }) {
     setSidebarOpen(false)
   }
   const navigate = useNavigate();
-  
+
   const Sidebar = () => (
     <div className="flex h-full flex-col bg-gray-900 text-white">
       <div className="flex h-16 items-center gap-2 border-b border-gray-800 px-6">
@@ -119,7 +119,7 @@ export function StudentDashboardLayout({ children, activeTab, setActiveTab }) {
       {/* Mobile sidebar */}
       <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="absolute left-4 top-3 md:hidden z-50">
+          <Button variant="ghost" size="icon" className="absolute left-4 top-3 md:hidden z-50 text-white">
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
@@ -141,7 +141,7 @@ export function StudentDashboardLayout({ children, activeTab, setActiveTab }) {
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className=" bg-purple-900">
               <Share2 className="mr-2 h-4 w-4" />
               Share Portfolio
             </Button>

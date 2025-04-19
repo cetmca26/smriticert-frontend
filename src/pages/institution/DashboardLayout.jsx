@@ -59,7 +59,7 @@ export function DashboardLayout({ children, activeTab, setActiveTab }) {
             <li key={item.value}>
               <button
                 onClick={() => handleTabChange(item.value)}
-                className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-white text-sm font-medium transition-colors ${
                   activeTab === item.value
                     ? "bg-indigo-600 text-white"
                     : "text-gray-300 hover:bg-gray-800 hover:text-white"

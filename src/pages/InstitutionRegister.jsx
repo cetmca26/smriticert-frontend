@@ -6,7 +6,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const steps = [
   {
     title: "Basic Information",
-    fields: ["institutionName", "email", "password", "confirm password"],
+    fields: ["institutionName", "email", "password", "confirmPassword", "phone"],
   },
   {
     title: "Location & Contact",
@@ -73,52 +73,85 @@ const InstitutionRegister = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (!validateStep()) return;
-  
+
     if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      try {
-        const response = await fetch(`${BACKEND_URL}auth/register/institution`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            institutionName: formData.institutionName,
-            email: formData.email,
-            password: formData.password,
-            confirmPassword: formData.confirmPassword,
-            phone: formData.phone,
-            address: formData.address,
-            city: formData.city,
-            state: formData.state,
-            website: formData.website,
-            type: formData.type,
-            tier: formData.tier,
-            yearEstablished: formData.yearEstablished,
-            accreditation: formData.accreditation,
-            coursesOffered: formData.coursesOffered,
-          }),
-        });
-  
-        const data = await response.json();
-  
-        if (!response.ok) {
-          throw new Error(data.message || "Registration failed");
-        }
-  
-        alert("Institution registered successfully!");
-        navigate("/login");
-      } catch (err) {
-        alert(err.message);
+      if (validateStep()) setCurrentStep(currentStep + 1);
+      return;
+    }
+
+    const requiredFields = [
+      "institutionName", "email", "password", "confirmPassword", "phone",
+      "address", "city", "state", "website", "type", "tier", "yearEstablished",
+      "accreditation"
+    ];
+
+    const missingFields = requiredFields.filter(
+      (key) => !formData[key] || formData[key].toString().trim() === ""
+    );
+
+    if (missingFields.length > 0) {
+      alert(`Missing fields: ${missingFields.join(", ")}`);
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    const hasInvalidCourse = formData.coursesOffered.some(
+      (course) => !course.name || !course.id
+    );
+    if (hasInvalidCourse) {
+      alert("Every course must have a name and ID");
+      return;
+    }
+
+    const payload = {
+      institutionName: formData.institutionName.trim(),
+      email: formData.email.trim(),
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      phone: formData.phone.trim(),
+      address: formData.address.trim(),
+      city: formData.city.trim(),
+      state: formData.state.trim(),
+      website: formData.website.trim(),
+      type: formData.type,
+      tier: formData.tier,
+      yearEstablished: Number(formData.yearEstablished),
+      accreditation: formData.accreditation.trim(),
+      coursesOffered: formData.coursesOffered.map((course) => ({
+        courseId: course.id,
+        courseName: course.name,
+        aggregation: course.aggregation || "",
+      })),
+    };
+
+    try {
+      const response = await fetch(`${BACKEND_URL}auth/register/institution`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errData = await response.text();
+        throw new Error(errData || "Registration failed. Check all fields.");
       }
+
+      await response.json();
+      alert("Institution registered successfully!");
+      navigate("/login");
+    } catch (error) {
+      alert(error.message || "Something went wrong. Please try again.");
     }
   };
-  
 
   const currentStepFields = steps[currentStep].fields;
 
@@ -256,9 +289,7 @@ const InstitutionRegister = () => {
                           type="button"
                           className="text-red-400 text-sm ml-2"
                           onClick={() => {
-                            const updatedCourses = [
-                              ...formData.coursesOffered,
-                            ];
+                            const updatedCourses = [...formData.coursesOffered];
                             updatedCourses.splice(idx, 1);
                             setFormData({
                               ...formData,
@@ -278,8 +309,9 @@ const InstitutionRegister = () => {
                     type={
                       field === "email"
                         ? "email"
-                        : field === "password" ||
-                          field === "confirm password"
+                        : field === "phone"
+                        ? "tel"
+                        : field === "password" || field === "confirmPassword"
                         ? "password"
                         : "text"
                     }
